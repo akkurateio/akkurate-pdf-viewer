@@ -1,0 +1,17 @@
+<script lang="ts">
+import Vue from 'vue';
+import AkkuratePdfViewer from '@/akkurate-pdf-viewer.vue';
+
+export default Vue.extend({
+  name: 'ServeDev',
+  components: {
+    AkkuratePdfViewer
+  }
+});
+</script>
+
+<template>
+  <div id="app">
+    <akkurate-pdf-viewer />
+  </div>
+</template>
