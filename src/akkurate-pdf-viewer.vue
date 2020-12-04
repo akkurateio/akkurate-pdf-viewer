@@ -25,11 +25,11 @@
             <!--                &#x27F2;-->
             <!--            </button>-->
             <a @click="zoomPdf(-1)" class="zoom-down text-primary">
-                <icon name="ZoomOut"></icon>
+                <ZoomOut24 />
             </a>
             <span v-html="`${(100 * zoom) / 800}%`"></span>
             <a @click="zoomPdf(1)" class="zoom-up text-primary">
-                <icon name="ZoomIn"></icon>
+                <ZoomIn24 />
             </a>
         </div>
         <vuescroll :ops="ops" class="pdf-content">
@@ -138,13 +138,17 @@
 import { Component, Prop, Ref, Vue, Watch } from 'vue-property-decorator';
 import pdf from 'vue-pdf';
 import vuescroll from 'vuescroll';
+import ZoomIn24 from "@carbon/icons-vue/es/zoom--in/24";
+import ZoomOut24 from "@carbon/icons-vue/es/zoom--out/24";
 
 const defaultZoom: number = 800;
 
 @Component({
     components: {
         pdf,
-        vuescroll
+        vuescroll,
+        ZoomIn24,
+        ZoomOut24
     },
 })
 export default class AkkPdfViewer extends Vue {

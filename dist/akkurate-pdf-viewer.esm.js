@@ -1,6 +1,8 @@
 import { Component, Prop, Ref, Watch, Vue } from 'vue-property-decorator';
 import pdf from 'vue-pdf';
 import vuescroll from 'vuescroll';
+import ZoomIn24 from '@carbon/icons-vue/es/zoom--in/24';
+import ZoomOut24 from '@carbon/icons-vue/es/zoom--out/24';
 
 function _initializerDefineProperty(target, property, descriptor, context) {
   if (!descriptor) return;
@@ -46,7 +48,9 @@ const defaultZoom = 800;
 let AkkPdfViewer = (_dec = Component({
   components: {
     pdf,
-    vuescroll
+    vuescroll,
+    ZoomIn24,
+    ZoomOut24
   }
 }), _dec2 = Prop({
   type: String,
@@ -344,11 +348,7 @@ var __vue_render__ = function () {
         return _vm.zoomPdf(-1);
       }
     }
-  }, [_c('icon', {
-    attrs: {
-      "name": "ZoomOut"
-    }
-  })], 1), _vm._v(" "), _c('span', {
+  }, [_c('ZoomOut24')], 1), _vm._v(" "), _c('span', {
     domProps: {
       "innerHTML": _vm._s(100 * _vm.zoom / 800 + "%")
     }
@@ -359,11 +359,7 @@ var __vue_render__ = function () {
         return _vm.zoomPdf(1);
       }
     }
-  }, [_c('icon', {
-    attrs: {
-      "name": "ZoomIn"
-    }
-  })], 1)]) : _vm._e(), _vm._v(" "), _c('vuescroll', {
+  }, [_c('ZoomIn24')], 1)]) : _vm._e(), _vm._v(" "), _c('vuescroll', {
     staticClass: "pdf-content",
     attrs: {
       "ops": _vm.ops
@@ -512,7 +508,7 @@ var __vue_staticRenderFns__ = [function () {
 
 const __vue_inject_styles__ = function (inject) {
   if (!inject) return;
-  inject("data-v-59aa1459_0", {
+  inject("data-v-4fa071d0_0", {
     source: ".pdf-viewer{position:relative;background:#f5f5f5;width:100%;height:100%;font-family:Helvetica,Arial,sans-serif;overflow:hidden}.error,.loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.pdf-tools{position:sticky;top:0;right:0;left:0;z-index:1;display:inline-flex;align-items:center;justify-content:center;margin:auto;width:100%;padding:10px;height:64px;background:#f5f5f5}.pdf-tools a{display:inline-block;width:25px;height:25px;cursor:pointer}.pdf-tools span{font:inherit;font-size:1em;font-weight:300;padding:0;width:64px;text-align:center}.pdf-tools input{font-size:1em;width:3rem;border-radius:5px;border:1px solid gray}.pdf-content{margin-top:16px}.pdf-canvas{display:block;margin:auto;width:800px;user-select:none;margin-bottom:20px;margin-top:20px}",
     map: undefined,
     media: undefined
