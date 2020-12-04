@@ -85,10 +85,33 @@ let AkkPdfViewer = (_dec = Component({
     this.numPages = 0;
     this.rotate = 0;
     this.zoom = defaultZoom;
-    this.message = '';
-    this.ops = {
+    this.message = null;
+    this.loading = false;
+    this.ops = {};
+  }
+
+  async onSrcChanged() {
+    this.loading = true;
+
+    try {
+      if (this.src && this.src.promise && this.src.promise instanceof Promise) {
+        const pdf = await this.src.promise;
+        this.message = null;
+        this.numPages = pdf.numPages;
+        this.loading = false;
+      }
+    } catch (err) {
+      this.message = 'Erreur de chargement du PDF.';
+      console.log(err);
+    }
+  }
+
+  created() {
+    this.src = pdf.createLoadingTask(this.srcPdf);
+    this.ops = { ...this.ops,
       vuescroll: {
-        mode: this.zoomable ? 'slide' : 'native'
+        mode: this.zoomable ? 'slide' : 'native',
+        zooming: this.zoomable
       },
       pullRefresh: {
         enable: true
@@ -102,23 +125,7 @@ let AkkPdfViewer = (_dec = Component({
         background: this.colorScroll
       }
     };
-  }
-
-  async onSrcChanged() {
-    try {
-      if (this.src && this.src.promise && this.src.promise instanceof Promise) {
-        const pdf = await this.src.promise;
-        this.message = '';
-        this.numPages = pdf.numPages;
-      }
-    } catch (err) {
-      this.message = 'Erreur de chargement du PDF.';
-      console.log(err);
-    }
-  }
-
-  created() {
-    this.src = pdf.createLoadingTask(this.srcPdf);
+    console.log("Yes", this.ops, this.zoomable);
   }
 
   zoomPdf(zoomVal) {
@@ -167,6 +174,10 @@ let AkkPdfViewer = (_dec = Component({
     this.pdfCanvas[this.page - 1].scrollIntoView({
       behavior: 'smooth'
     });
+  }
+
+  changeSrc(src) {
+    this.src = pdf.createLoadingTask(src);
   }
 
 }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "srcPdf", [_dec2], {
@@ -366,7 +377,9 @@ var __vue_render__ = function () {
         return _vm.zoomPdf(1);
       }
     }
-  }, [_c('ZoomIn24')], 1)]) : _vm._e(), _vm._v(" "), _c('vuescroll', {
+  }, [_c('ZoomIn24')], 1)]) : _vm._e(), _vm._v(" "), _vm.loading && !_vm.message ? _c('div', {
+    staticClass: "loading"
+  }, [_vm._m(0)]) : _c('vuescroll', {
     staticClass: "pdf-content",
     attrs: {
       "ops": _vm.ops
@@ -490,9 +503,7 @@ var __vue_render__ = function () {
     domProps: {
       "innerHTML": _vm._s(_vm.message)
     }
-  })])]) : _vm.numPages === 0 ? _c('div', {
-    staticClass: "loading"
-  }, [_vm._m(0)]) : _vm._e()], 1);
+  })])]) : _vm._e()], 1);
 };
 
 var __vue_staticRenderFns__ = [function () {
@@ -515,8 +526,8 @@ var __vue_staticRenderFns__ = [function () {
 
 const __vue_inject_styles__ = function (inject) {
   if (!inject) return;
-  inject("data-v-28d01ff1_0", {
-    source: ".pdf-viewer{position:relative;background:#f5f5f5;width:100%;height:100%;font-family:Helvetica,Arial,sans-serif;overflow:hidden}.error,.loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.pdf-tools{position:sticky;top:0;right:0;left:0;z-index:1;display:inline-flex;align-items:center;justify-content:center;margin:auto;width:100%;padding:10px;height:64px;background:#f5f5f5}.pdf-tools a{display:inline-block;width:25px;height:25px;cursor:pointer}.pdf-tools span{font:inherit;font-size:1em;font-weight:300;padding:0;width:64px;text-align:center}.pdf-tools input{font-size:1em;width:3rem;border-radius:5px;border:1px solid gray}.pdf-content{margin-top:16px}.pdf-canvas{display:block;margin:auto;width:800px;user-select:none;margin-bottom:20px;margin-top:20px}",
+  inject("data-v-6e6e2787_0", {
+    source: ".pdf-viewer{position:relative;background:#f5f5f5;width:100%;height:100%;font-family:Helvetica,Arial,sans-serif;overflow:hidden}.error,.loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.pdf-tools{position:sticky;top:0;right:0;left:0;z-index:1;display:inline-flex;align-items:center;justify-content:center;margin:auto;width:100%;padding:10px;height:64px;background:#f5f5f5}.pdf-tools a{display:inline-block;width:25px;height:25px;cursor:pointer}.pdf-tools span{font:inherit;font-size:1em;font-weight:300;padding:0;width:64px;text-align:center}.pdf-tools input{font-size:1em;width:3rem;border-radius:5px;border:1px solid gray}.pdf-content{margin-top:16px}.pdf-canvas{display:block;margin:auto;height:100vh;width:100vh;user-select:none;margin-bottom:20px;margin-top:20px}",
     map: undefined,
     media: undefined
   });

@@ -32,7 +32,12 @@
                 <ZoomIn24 />
             </a>
         </div>
-        <vuescroll :ops="ops" class="pdf-content">
+        <div class="loading" v-if="loading && !message">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <vuescroll :ops="ops" class="pdf-content" v-else>
             <div class="progress" v-if="loadedRatio > 0 && loadedRatio < 1">
                 <div
                     :aria-valuenow="loadedRatio * 100"
@@ -126,12 +131,6 @@
                 <span v-html="message"></span>
             </div>
         </div>
-
-        <div class="loading" v-else-if="numPages === 0">
-            <div class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
     </div>
 </template>
 <script lang="ts">
@@ -166,27 +165,14 @@ export default class AkkPdfViewer extends Vue {
     numPages: number = 0;
     rotate: number = 0;
     zoom: number = defaultZoom;
-    message: string = '';
+    message: string = null;
+    loading: boolean = false;
 
-    ops: object = {
-        vuescroll: {
-            mode: this.zoomable ? 'slide' : 'native',
-        },
-        pullRefresh: {
-            enable: true
-        },
-        pushLoad: {
-            enable: true,
-            auto: true,
-            autoLoadDistance: 10
-        },
-        bar: {
-            background: this.colorScroll
-        }
-    }
+    ops: object = {};
 
     @Watch('src', { immediate: true })
     async onSrcChanged() {
+        this.loading = true;
         try {
             if (
                 this.src &&
@@ -194,8 +180,9 @@ export default class AkkPdfViewer extends Vue {
                 this.src.promise instanceof Promise
             ) {
                 const pdf = await this.src.promise;
-                this.message = '';
+                this.message = null;
                 this.numPages = pdf.numPages;
+                this.loading = false;
             }
         } catch (err) {
             this.message = 'Erreur de chargement du PDF.';
@@ -205,6 +192,26 @@ export default class AkkPdfViewer extends Vue {
 
     created(): void {
         this.src = pdf.createLoadingTask(this.srcPdf);
+
+        this.ops = {
+            ...this.ops,
+            vuescroll: {
+                mode: this.zoomable ? 'slide' : 'native',
+                zooming: this.zoomable
+            },
+            pullRefresh: {
+                enable: true
+            },
+            pushLoad: {
+                enable: true,
+                auto: true,
+                autoLoadDistance: 10
+            },
+            bar: {
+                background: this.colorScroll
+            }
+        }
+        console.log("Yes", this.ops, this.zoomable)
     }
 
     zoomPdf(zoomVal: number): void {
@@ -255,6 +262,10 @@ export default class AkkPdfViewer extends Vue {
         this.pdfCanvas[this.page - 1].scrollIntoView({
             behavior: 'smooth',
         });
+    }
+
+    changeSrc(src: string){
+        this.src = pdf.createLoadingTask(src);;
     }
 }
 </script>
@@ -321,7 +332,8 @@ export default class AkkPdfViewer extends Vue {
 .pdf-canvas {
     display: block;
     margin: auto;
-    width: 800px;
+    height: 100vh;
+    width: 100vh;
     user-select: none;
     margin-bottom: 20px;
     margin-top: 20px;

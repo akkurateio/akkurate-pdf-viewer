@@ -56,6 +56,55 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
@@ -226,23 +275,9 @@ var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
     _this.numPages = 0;
     _this.rotate = 0;
     _this.zoom = defaultZoom;
-    _this.message = '';
-    _this.ops = {
-      vuescroll: {
-        mode: _this.zoomable ? 'slide' : 'native'
-      },
-      pullRefresh: {
-        enable: true
-      },
-      pushLoad: {
-        enable: true,
-        auto: true,
-        autoLoadDistance: 10
-      },
-      bar: {
-        background: _this.colorScroll
-      }
-    };
+    _this.message = null;
+    _this.loading = false;
+    _this.ops = {};
     return _this;
   }
 
@@ -256,37 +291,39 @@ var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
+                this.loading = true;
+                _context.prev = 1;
 
                 if (!(this.src && this.src.promise && this.src.promise instanceof Promise)) {
-                  _context.next = 7;
+                  _context.next = 9;
                   break;
                 }
 
-                _context.next = 4;
+                _context.next = 5;
                 return this.src.promise;
 
-              case 4:
+              case 5:
                 _pdf = _context.sent;
-                this.message = '';
+                this.message = null;
                 this.numPages = _pdf.numPages;
-
-              case 7:
-                _context.next = 13;
-                break;
+                this.loading = false;
 
               case 9:
-                _context.prev = 9;
-                _context.t0 = _context["catch"](0);
+                _context.next = 15;
+                break;
+
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](1);
                 this.message = 'Erreur de chargement du PDF.';
                 console.log(_context.t0);
 
-              case 13:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 9]]);
+        }, _callee, this, [[1, 11]]);
       }));
 
       function onSrcChanged() {
@@ -299,6 +336,24 @@ var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
     key: "created",
     value: function created() {
       this.src = pdf__default['default'].createLoadingTask(this.srcPdf);
+      this.ops = _objectSpread2(_objectSpread2({}, this.ops), {}, {
+        vuescroll: {
+          mode: this.zoomable ? 'slide' : 'native',
+          zooming: this.zoomable
+        },
+        pullRefresh: {
+          enable: true
+        },
+        pushLoad: {
+          enable: true,
+          auto: true,
+          autoLoadDistance: 10
+        },
+        bar: {
+          background: this.colorScroll
+        }
+      });
+      console.log("Yes", this.ops, this.zoomable);
     }
   }, {
     key: "zoomPdf",
@@ -352,6 +407,11 @@ var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
       this.pdfCanvas[this.page - 1].scrollIntoView({
         behavior: 'smooth'
       });
+    }
+  }, {
+    key: "changeSrc",
+    value: function changeSrc(src) {
+      this.src = pdf__default['default'].createLoadingTask(src);
     }
   }]);
 
@@ -516,7 +576,7 @@ var __vue_render__ = function __vue_render__() {
     on: {
       "scroll": _vm.scrollInPdf
     }
-  }, [_vm.numPages > 0 && _vm.withTools ? _vm._ssrNode("<div class=\"pdf-tools justify-content-center\">", "</div>", [_vm._ssrNode("<a class=\"zoom-down text-primary\">", "</a>", [_c('ZoomOut24')], 1), _vm._ssrNode(" <span>" + _vm._s(100 * _vm.zoom / 800 + "%") + "</span> "), _vm._ssrNode("<a class=\"zoom-up text-primary\">", "</a>", [_c('ZoomIn24')], 1)], 2) : _vm._e(), _vm._ssrNode(" "), _c('vuescroll', {
+  }, [_vm.numPages > 0 && _vm.withTools ? _vm._ssrNode("<div class=\"pdf-tools justify-content-center\">", "</div>", [_vm._ssrNode("<a class=\"zoom-down text-primary\">", "</a>", [_c('ZoomOut24')], 1), _vm._ssrNode(" <span>" + _vm._s(100 * _vm.zoom / 800 + "%") + "</span> "), _vm._ssrNode("<a class=\"zoom-up text-primary\">", "</a>", [_c('ZoomIn24')], 1)], 2) : _vm._e(), _vm._ssrNode(" "), _vm.loading && !_vm.message ? _vm._ssrNode("<div class=\"loading\">", "</div>", [_vm._ssrNode("<div role=\"status\" class=\"spinner-border\"><span class=\"sr-only\">Loading...</span></div>")], 2) : _c('vuescroll', {
     staticClass: "pdf-content",
     attrs: {
       "ops": _vm.ops
@@ -558,7 +618,7 @@ var __vue_render__ = function __vue_render__() {
         }
       }
     })], 1);
-  })], 2), _vm._ssrNode(" " + (_vm.message ? "<div class=\"error\"><svg height=\"128\" viewBox=\"0 0 128 128\" width=\"128\" xmlns=\"http://www.w3.org/2000/svg\"><g fill=\"none\" fill-rule=\"evenodd\"><path d=\"m87 102 3.5 5.25-2.5 3.75-3.5-5.25zm-12 0 3.5 5.25-2.5 3.75-3.5-5.25zm-12 0 3.5 5.25-2.5 3.75-3.5-5.25zm-12 0 3.5 5.25-2.5 3.75-3.5-5.25zm-12 0 3.5 5.25-2.5 3.75-3.5-5.25zm25-71c19.882251 0 36 16.117749 36 36v42c0 .645453-.0169864 1.286938-.0505367 1.924034l-5.9494633-8.924034-1 1.5v-36.5c0-18.7012521-14.25984-34.0719401-32.4994394-35.8319833 1.1513984-.111181 2.3187815-.1680167 3.4994394-.1680167zm-36 72.5 2.5 3.75-2.449 3.674-.0266344-.587053c-.0161968-.443647-.0243656-.889343-.0243656-1.336947z\" fill=\"#f5f5f5\"></path> <path d=\"m29 107.697575 4.9999767-7.500386 6.0000233 9.000035 6-9 6 9 6-9 6 9 6-9 6 9 6-9 6 9 5.9999925-8.999988 5.0000075 7.499875v-40.697111c0-9.6649831-3.9175084-18.4149831-10.2512627-24.7487373-6.3337542-6.3337543-15.0837542-10.2512627-24.7487373-10.2512627s-18.4149831 3.9175084-24.7487373 10.2512627c-6.3337543 6.3337542-10.2512627 15.0837542-10.2512627 24.7487373z\" stroke=\"#000\" stroke-width=\"2\"></path> <rect fill=\"#000\" height=\"4\" rx=\"2\" width=\"22\" x=\"53\" y=\"86\"></rect> <rect fill=\"#000\" height=\"4\" rx=\"2\" width=\"10\" x=\"40\" y=\"77\"></rect> <rect fill=\"#000\" height=\"4\" rx=\"2\" width=\"10\" x=\"78\" y=\"77\"></rect> <g fill=\"#ccc\"><path d=\"m24 20c0 4.9705627 4.0294373 9 9 9 .536787 0 1.062598-.0469934 1.5735435-.1370907-1.6003862 2.4888038-4.3944758 4.1370907-7.5735435 4.1370907-4.9705627 0-9-4.0294373-9-9 0-4.4337758 3.2061271-8.1187205 7.4264565-8.8629093-.9030194 1.4021744-1.4264565 3.0714142-1.4264565 4.8629093z\"></path> <path d=\"m76.5 19.25-2.0572484 1.0815595.3928995-2.2907798-1.6643489-1.6223392 2.3000736-.3342202 1.0286242-2.0842203 1.0286242 2.0842203 2.3000736.3342202-1.6643489 1.6223392.3928995 2.2907798z\"></path> <path d=\"m105.5 47.25-2.057248 1.0815595.392899-2.2907798-1.664349-1.6223392 2.300074-.3342202 1.028624-2.0842203 1.028624 2.0842203 2.300074.3342202-1.664349 1.6223392.392899 2.2907798z\"></path> <path d=\"m108.5 19.75-4.996175 2.6266445.954185-5.5633223-4.04199-3.9399667 5.585893-.8116777 2.498087-5.0616778 2.498087 5.0616778 5.585893.8116777-4.04199 3.9399667.954185 5.5633223z\"></path> <path d=\"m16.5 58.25-2.0572484 1.0815595.3928995-2.2907798-1.6643489-1.6223392 2.3000736-.3342202 1.0286242-2.0842203 1.0286242 2.0842203 2.3000736.3342202-1.6643489 1.6223392.3928995 2.2907798z\"></path></g></g></svg> <div class=\"error-message text-danger font-weight-bolder\"><span>" + _vm._s(_vm.message) + "</span></div></div>" : _vm.numPages === 0 ? "<div class=\"loading\"><div role=\"status\" class=\"spinner-border\"><span class=\"sr-only\">Loading...</span></div></div>" : "<!---->"))], 2);
+  })], 2), _vm._ssrNode(" " + (_vm.message ? "<div class=\"error\"><svg height=\"128\" viewBox=\"0 0 128 128\" width=\"128\" xmlns=\"http://www.w3.org/2000/svg\"><g fill=\"none\" fill-rule=\"evenodd\"><path d=\"m87 102 3.5 5.25-2.5 3.75-3.5-5.25zm-12 0 3.5 5.25-2.5 3.75-3.5-5.25zm-12 0 3.5 5.25-2.5 3.75-3.5-5.25zm-12 0 3.5 5.25-2.5 3.75-3.5-5.25zm-12 0 3.5 5.25-2.5 3.75-3.5-5.25zm25-71c19.882251 0 36 16.117749 36 36v42c0 .645453-.0169864 1.286938-.0505367 1.924034l-5.9494633-8.924034-1 1.5v-36.5c0-18.7012521-14.25984-34.0719401-32.4994394-35.8319833 1.1513984-.111181 2.3187815-.1680167 3.4994394-.1680167zm-36 72.5 2.5 3.75-2.449 3.674-.0266344-.587053c-.0161968-.443647-.0243656-.889343-.0243656-1.336947z\" fill=\"#f5f5f5\"></path> <path d=\"m29 107.697575 4.9999767-7.500386 6.0000233 9.000035 6-9 6 9 6-9 6 9 6-9 6 9 6-9 6 9 5.9999925-8.999988 5.0000075 7.499875v-40.697111c0-9.6649831-3.9175084-18.4149831-10.2512627-24.7487373-6.3337542-6.3337543-15.0837542-10.2512627-24.7487373-10.2512627s-18.4149831 3.9175084-24.7487373 10.2512627c-6.3337543 6.3337542-10.2512627 15.0837542-10.2512627 24.7487373z\" stroke=\"#000\" stroke-width=\"2\"></path> <rect fill=\"#000\" height=\"4\" rx=\"2\" width=\"22\" x=\"53\" y=\"86\"></rect> <rect fill=\"#000\" height=\"4\" rx=\"2\" width=\"10\" x=\"40\" y=\"77\"></rect> <rect fill=\"#000\" height=\"4\" rx=\"2\" width=\"10\" x=\"78\" y=\"77\"></rect> <g fill=\"#ccc\"><path d=\"m24 20c0 4.9705627 4.0294373 9 9 9 .536787 0 1.062598-.0469934 1.5735435-.1370907-1.6003862 2.4888038-4.3944758 4.1370907-7.5735435 4.1370907-4.9705627 0-9-4.0294373-9-9 0-4.4337758 3.2061271-8.1187205 7.4264565-8.8629093-.9030194 1.4021744-1.4264565 3.0714142-1.4264565 4.8629093z\"></path> <path d=\"m76.5 19.25-2.0572484 1.0815595.3928995-2.2907798-1.6643489-1.6223392 2.3000736-.3342202 1.0286242-2.0842203 1.0286242 2.0842203 2.3000736.3342202-1.6643489 1.6223392.3928995 2.2907798z\"></path> <path d=\"m105.5 47.25-2.057248 1.0815595.392899-2.2907798-1.664349-1.6223392 2.300074-.3342202 1.028624-2.0842203 1.028624 2.0842203 2.300074.3342202-1.664349 1.6223392.392899 2.2907798z\"></path> <path d=\"m108.5 19.75-4.996175 2.6266445.954185-5.5633223-4.04199-3.9399667 5.585893-.8116777 2.498087-5.0616778 2.498087 5.0616778 5.585893.8116777-4.04199 3.9399667.954185 5.5633223z\"></path> <path d=\"m16.5 58.25-2.0572484 1.0815595.3928995-2.2907798-1.6643489-1.6223392 2.3000736-.3342202 1.0286242-2.0842203 1.0286242 2.0842203 2.3000736.3342202-1.6643489 1.6223392.3928995 2.2907798z\"></path></g></g></svg> <div class=\"error-message text-danger font-weight-bolder\"><span>" + _vm._s(_vm.message) + "</span></div></div>" : "<!---->"))], 2);
 };
 
 var __vue_staticRenderFns__ = [];
@@ -566,8 +626,8 @@ var __vue_staticRenderFns__ = [];
 
 var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
   if (!inject) return;
-  inject("data-v-28d01ff1_0", {
-    source: ".pdf-viewer{position:relative;background:#f5f5f5;width:100%;height:100%;font-family:Helvetica,Arial,sans-serif;overflow:hidden}.error,.loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.pdf-tools{position:sticky;top:0;right:0;left:0;z-index:1;display:inline-flex;align-items:center;justify-content:center;margin:auto;width:100%;padding:10px;height:64px;background:#f5f5f5}.pdf-tools a{display:inline-block;width:25px;height:25px;cursor:pointer}.pdf-tools span{font:inherit;font-size:1em;font-weight:300;padding:0;width:64px;text-align:center}.pdf-tools input{font-size:1em;width:3rem;border-radius:5px;border:1px solid gray}.pdf-content{margin-top:16px}.pdf-canvas{display:block;margin:auto;width:800px;user-select:none;margin-bottom:20px;margin-top:20px}",
+  inject("data-v-6e6e2787_0", {
+    source: ".pdf-viewer{position:relative;background:#f5f5f5;width:100%;height:100%;font-family:Helvetica,Arial,sans-serif;overflow:hidden}.error,.loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.pdf-tools{position:sticky;top:0;right:0;left:0;z-index:1;display:inline-flex;align-items:center;justify-content:center;margin:auto;width:100%;padding:10px;height:64px;background:#f5f5f5}.pdf-tools a{display:inline-block;width:25px;height:25px;cursor:pointer}.pdf-tools span{font:inherit;font-size:1em;font-weight:300;padding:0;width:64px;text-align:center}.pdf-tools input{font-size:1em;width:3rem;border-radius:5px;border:1px solid gray}.pdf-content{margin-top:16px}.pdf-canvas{display:block;margin:auto;height:100vh;width:100vh;user-select:none;margin-bottom:20px;margin-top:20px}",
     map: undefined,
     media: undefined
   });
@@ -578,7 +638,7 @@ var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-28d01ff1";
+var __vue_module_identifier__ = "data-v-6e6e2787";
 /* functional template */
 
 var __vue_is_functional_template__ = false;
