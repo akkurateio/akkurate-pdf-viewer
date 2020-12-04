@@ -57,6 +57,9 @@ const external = [
     'vue',
     'vue-property-decorator',
     'vue-pdf',
+    'vuescroll',
+    '@carbon/icons-vue/es/zoom--in/24',
+    '@carbon/icons-vue/es/zoom--out/24'
 ];
 
 // UMD/IIFE shared settings: output.globals
@@ -68,6 +71,9 @@ const globals = {
     'vue-property-decorator': 'VueClassComponent',
     'vue-class-component': 'VueClassComponent',
     'vue-pdf': 'pdf',
+    'vuescroll': 'vuescroll',
+    '@carbon/icons-vue/es/zoom--in/24': 'ZoomIn24',
+    '@carbon/icons-vue/es/zoom--out/24': 'ZoomOut24',
 };
 
 // Customize configs for individual targets
