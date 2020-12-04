@@ -168,9 +168,7 @@ export default class AkkPdfViewer extends Vue {
 
     ops: object = {
         vuescroll: {
-            mode: 'native',
-            sizeStrategy: 'percent',
-            detectResize: false,
+            mode: 'slide',
         },
         pullRefresh: {
             enable: true
