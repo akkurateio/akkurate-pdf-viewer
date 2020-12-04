@@ -1,4 +1,4 @@
-'use strict';Object.defineProperty(exports,'__esModule',{value:true});var vuePropertyDecorator=require('vue-property-decorator'),pdf=require('vue-pdf');function _interopDefaultLegacy(e){return e&&typeof e==='object'&&'default'in e?e:{'default':e}}var pdf__default=/*#__PURE__*/_interopDefaultLegacy(pdf);function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+'use strict';Object.defineProperty(exports,'__esModule',{value:true});var vuePropertyDecorator=require('vue-property-decorator'),pdf=require('vue-pdf'),vuescroll=require('vuescroll');function _interopDefaultLegacy(e){return e&&typeof e==='object'&&'default'in e?e:{'default':e}}var pdf__default=/*#__PURE__*/_interopDefaultLegacy(pdf);var vuescroll__default=/*#__PURE__*/_interopDefaultLegacy(vuescroll);function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
     var info = gen[key](arg);
     var value = info.value;
@@ -172,18 +172,21 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
   }
 
   return desc;
-}var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _temp;
+}var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _temp;
 var defaultZoom = 800;
 var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
   components: {
-    pdf: pdf__default['default']
+    pdf: pdf__default['default'],
+    vuescroll: vuescroll__default['default']
   }
 }), _dec2 = vuePropertyDecorator.Prop({
   type: String,
   required: true
 }), _dec3 = vuePropertyDecorator.Prop({
   default: false
-}), _dec4 = vuePropertyDecorator.Ref(), _dec5 = vuePropertyDecorator.Ref(), _dec6 = vuePropertyDecorator.Watch('src', {
+}), _dec4 = vuePropertyDecorator.Prop({
+  default: '#1D189C'
+}), _dec5 = vuePropertyDecorator.Ref(), _dec6 = vuePropertyDecorator.Ref(), _dec7 = vuePropertyDecorator.Watch('src', {
   immediate: true
 }), _dec(_class = (_class2 = (_temp = /*#__PURE__*/function (_Vue) {
   _inherits(AkkPdfViewer, _Vue);
@@ -205,9 +208,11 @@ var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
 
     _initializerDefineProperty(_this, "withTools", _descriptor2, _assertThisInitialized(_this));
 
-    _initializerDefineProperty(_this, "pdfCanvas", _descriptor3, _assertThisInitialized(_this));
+    _initializerDefineProperty(_this, "colorScroll", _descriptor3, _assertThisInitialized(_this));
 
-    _initializerDefineProperty(_this, "mainContainer", _descriptor4, _assertThisInitialized(_this));
+    _initializerDefineProperty(_this, "pdfCanvas", _descriptor4, _assertThisInitialized(_this));
+
+    _initializerDefineProperty(_this, "mainContainer", _descriptor5, _assertThisInitialized(_this));
 
     _this.src = null;
     _this.loadedRatio = 0;
@@ -216,6 +221,14 @@ var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
     _this.rotate = 0;
     _this.zoom = defaultZoom;
     _this.message = '';
+    _this.ops = {
+      vuescroll: {
+        mode: 'slide'
+      },
+      bar: {
+        background: _this.colorScroll
+      }
+    };
     return _this;
   }
 
@@ -339,17 +352,22 @@ var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
   enumerable: true,
   writable: true,
   initializer: null
-}), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "pdfCanvas", [_dec4], {
+}), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "colorScroll", [_dec4], {
   configurable: true,
   enumerable: true,
   writable: true,
   initializer: null
-}), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "mainContainer", [_dec5], {
+}), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "pdfCanvas", [_dec5], {
   configurable: true,
   enumerable: true,
   writable: true,
   initializer: null
-}), _applyDecoratedDescriptor(_class2.prototype, "onSrcChanged", [_dec6], Object.getOwnPropertyDescriptor(_class2.prototype, "onSrcChanged"), _class2.prototype)), _class2)) || _class);function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+}), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "mainContainer", [_dec6], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _applyDecoratedDescriptor(_class2.prototype, "onSrcChanged", [_dec7], Object.getOwnPropertyDescriptor(_class2.prototype, "onSrcChanged"), _class2.prototype)), _class2)) || _class);function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
     if (typeof shadowMode !== 'boolean') {
         createInjectorSSR = createInjector;
         createInjector = shadowMode;
@@ -479,18 +497,39 @@ var __vue_render__ = function __vue_render__() {
     on: {
       "scroll": _vm.scrollInPdf
     }
-  }, [_vm.numPages > 0 && _vm.withTools ? _vm._ssrNode("<div class=\"pdf-tools justify-content-center\">", "</div>", [_vm._ssrNode("<a class=\"zoom-down text-primary\">", "</a>", [_c('v-icon', {
+  }, [_vm.numPages > 0 && _vm.withTools ? _vm._ssrNode("<div class=\"pdf-tools justify-content-center\">", "</div>", [_vm._ssrNode("<a class=\"zoom-down text-primary\">", "</a>", [_c('icon', {
     attrs: {
       "name": "zoom-out"
     }
-  })], 1), _vm._ssrNode(" <span>" + _vm._s(100 * _vm.zoom / 800 + "%") + "</span> "), _vm._ssrNode("<a class=\"zoom-up text-primary\">", "</a>", [_c('v-icon', {
+  })], 1), _vm._ssrNode(" <span>" + _vm._s(100 * _vm.zoom / 800 + "%") + "</span> "), _vm._ssrNode("<a class=\"zoom-up text-primary\">", "</a>", [_c('icon', {
     attrs: {
       "name": "zoom-in"
     }
-  })], 1)], 2) : _vm._e(), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"pdf-content\">", "</div>", [_vm._ssrNode((_vm.loadedRatio > 0 && _vm.loadedRatio < 1 ? "<div class=\"progress\"><div" + _vm._ssrAttr("aria-valuenow", _vm.loadedRatio * 100) + " aria-valuemax=\"100\" aria-valuemin=\"0\" role=\"progressbar\" class=\"progress-bar progress-bar-striped progress-bar-animated\"" + _vm._ssrStyle(null, {
-    width: _vm.loadedRatio * 100 + '%'
-  }, null) + "></div></div>" : "<!---->") + " "), _vm._l(_vm.numPages, function (i) {
-    return _vm._ssrNode("<div class=\"pdf-canvas\">", "</div>", [_c('pdf', {
+  })], 1)], 2) : _vm._e(), _vm._ssrNode(" "), _c('vuescroll', {
+    staticClass: "pdf-content",
+    attrs: {
+      "ops": _vm.ops
+    }
+  }, [_vm.loadedRatio > 0 && _vm.loadedRatio < 1 ? _c('div', {
+    staticClass: "progress"
+  }, [_c('div', {
+    staticClass: "progress-bar progress-bar-striped progress-bar-animated",
+    style: {
+      width: _vm.loadedRatio * 100 + '%'
+    },
+    attrs: {
+      "aria-valuenow": _vm.loadedRatio * 100,
+      "aria-valuemax": "100",
+      "aria-valuemin": "0",
+      "role": "progressbar"
+    }
+  })]) : _vm._e(), _vm._v(" "), _vm._l(_vm.numPages, function (i) {
+    return _c('div', {
+      key: i,
+      ref: "pdfCanvas",
+      refInFor: true,
+      staticClass: "pdf-canvas"
+    }, [_c('pdf', {
       ref: "pdf",
       refInFor: true,
       attrs: {
@@ -516,8 +555,8 @@ var __vue_staticRenderFns__ = [];
 
 var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
   if (!inject) return;
-  inject("data-v-4d8fa250_0", {
-    source: ".pdf-viewer{position:relative;background:#f5f5f5;width:100%;height:100%;font-family:Helvetica,Arial,sans-serif;overflow:hidden;overflow-y:auto}.error,.loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.pdf-tools{position:sticky;top:0;right:0;left:0;z-index:1;display:inline-flex;align-items:center;justify-content:center;margin:auto;width:100%;padding:10px;height:64px;background:#f5f5f5}.pdf-tools a{display:inline-block;width:25px;height:25px;cursor:pointer}.pdf-tools span{font:inherit;font-size:1em;font-weight:300;padding:0;width:64px;text-align:center}.pdf-tools input{font-size:1em;width:3rem;border-radius:5px;border:1px solid gray}.pdf-content{margin-top:16px}.pdf-canvas{display:block;margin:auto;width:800px;user-select:none;margin-bottom:20px;margin-top:20px}",
+  inject("data-v-3ff0a65c_0", {
+    source: ".pdf-viewer{position:relative;background:#f5f5f5;width:100%;height:100%;font-family:Helvetica,Arial,sans-serif;overflow:hidden}.error,.loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.pdf-tools{position:sticky;top:0;right:0;left:0;z-index:1;display:inline-flex;align-items:center;justify-content:center;margin:auto;width:100%;padding:10px;height:64px;background:#f5f5f5}.pdf-tools a{display:inline-block;width:25px;height:25px;cursor:pointer}.pdf-tools span{font:inherit;font-size:1em;font-weight:300;padding:0;width:64px;text-align:center}.pdf-tools input{font-size:1em;width:3rem;border-radius:5px;border:1px solid gray}.pdf-content{margin-top:16px}.pdf-canvas{display:block;margin:auto;width:800px;user-select:none;margin-bottom:20px;margin-top:20px}",
     map: undefined,
     media: undefined
   });
@@ -528,7 +567,7 @@ var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-4d8fa250";
+var __vue_module_identifier__ = "data-v-3ff0a65c";
 /* functional template */
 
 var __vue_is_functional_template__ = false;

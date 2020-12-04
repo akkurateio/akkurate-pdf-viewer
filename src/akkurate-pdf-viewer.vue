@@ -25,14 +25,14 @@
             <!--                &#x27F2;-->
             <!--            </button>-->
             <a @click="zoomPdf(-1)" class="zoom-down text-primary">
-                <v-icon name="zoom-out"></v-icon>
+                <icon name="zoom-out"></icon>
             </a>
             <span v-html="`${(100 * zoom) / 800}%`"></span>
             <a @click="zoomPdf(1)" class="zoom-up text-primary">
-                <v-icon name="zoom-in"></v-icon>
+                <icon name="zoom-in"></icon>
             </a>
         </div>
-        <div class="pdf-content">
+        <vuescroll :ops="ops" class="pdf-content">
             <div class="progress" v-if="loadedRatio > 0 && loadedRatio < 1">
                 <div
                     :aria-valuenow="loadedRatio * 100"
@@ -60,7 +60,7 @@
                     ref="pdf"
                 ></pdf>
             </div>
-        </div>
+        </vuescroll>
 
         <div class="error" v-if="message">
             <svg
@@ -136,20 +136,21 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Ref, Vue, Watch } from 'vue-property-decorator';
-
-// @ts-ignore
 import pdf from 'vue-pdf';
+import vuescroll from 'vuescroll';
 
 const defaultZoom: number = 800;
 
 @Component({
     components: {
         pdf,
+        vuescroll
     },
 })
 export default class AkkPdfViewer extends Vue {
     @Prop({ type: String, required: true }) readonly srcPdf!: string;
     @Prop({ default: false }) readonly withTools!: boolean;
+    @Prop({ default: '#1D189C' }) readonly colorScroll!: string;
     @Ref() readonly pdfCanvas!: Array<HTMLDivElement> | undefined;
     @Ref() readonly mainContainer!: HTMLDivElement | undefined;
 
@@ -160,6 +161,15 @@ export default class AkkPdfViewer extends Vue {
     rotate: number = 0;
     zoom: number = defaultZoom;
     message: string = '';
+
+    ops: object = {
+        vuescroll: {
+            mode: 'slide'
+        },
+        bar: {
+            background: this.colorScroll
+        }
+    }
 
     @Watch('src', { immediate: true })
     async onSrcChanged() {
@@ -242,7 +252,6 @@ export default class AkkPdfViewer extends Vue {
     height: 100%;
     font-family: Helvetica, Arial, sans-serif;
     overflow: hidden;
-    overflow-y: auto;
 }
 .loading,
 .error {
