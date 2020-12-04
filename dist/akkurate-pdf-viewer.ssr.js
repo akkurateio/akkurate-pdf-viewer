@@ -223,7 +223,17 @@ var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
     _this.message = '';
     _this.ops = {
       vuescroll: {
-        mode: 'slide'
+        mode: 'native',
+        sizeStrategy: 'percent',
+        detectResize: false
+      },
+      pullRefresh: {
+        enable: true
+      },
+      pushLoad: {
+        enable: true,
+        auto: true,
+        autoLoadDistance: 10
       },
       bar: {
         background: _this.colorScroll
@@ -499,11 +509,11 @@ var __vue_render__ = function __vue_render__() {
     }
   }, [_vm.numPages > 0 && _vm.withTools ? _vm._ssrNode("<div class=\"pdf-tools justify-content-center\">", "</div>", [_vm._ssrNode("<a class=\"zoom-down text-primary\">", "</a>", [_c('icon', {
     attrs: {
-      "name": "zoom-out"
+      "name": "ZoomOut"
     }
   })], 1), _vm._ssrNode(" <span>" + _vm._s(100 * _vm.zoom / 800 + "%") + "</span> "), _vm._ssrNode("<a class=\"zoom-up text-primary\">", "</a>", [_c('icon', {
     attrs: {
-      "name": "zoom-in"
+      "name": "ZoomIn"
     }
   })], 1)], 2) : _vm._e(), _vm._ssrNode(" "), _c('vuescroll', {
     staticClass: "pdf-content",
@@ -555,7 +565,7 @@ var __vue_staticRenderFns__ = [];
 
 var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
   if (!inject) return;
-  inject("data-v-3ff0a65c_0", {
+  inject("data-v-59aa1459_0", {
     source: ".pdf-viewer{position:relative;background:#f5f5f5;width:100%;height:100%;font-family:Helvetica,Arial,sans-serif;overflow:hidden}.error,.loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.pdf-tools{position:sticky;top:0;right:0;left:0;z-index:1;display:inline-flex;align-items:center;justify-content:center;margin:auto;width:100%;padding:10px;height:64px;background:#f5f5f5}.pdf-tools a{display:inline-block;width:25px;height:25px;cursor:pointer}.pdf-tools span{font:inherit;font-size:1em;font-weight:300;padding:0;width:64px;text-align:center}.pdf-tools input{font-size:1em;width:3rem;border-radius:5px;border:1px solid gray}.pdf-content{margin-top:16px}.pdf-canvas{display:block;margin:auto;width:800px;user-select:none;margin-bottom:20px;margin-top:20px}",
     map: undefined,
     media: undefined
@@ -567,7 +577,7 @@ var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-3ff0a65c";
+var __vue_module_identifier__ = "data-v-59aa1459";
 /* functional template */
 
 var __vue_is_functional_template__ = false;

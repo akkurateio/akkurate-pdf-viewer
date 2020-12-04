@@ -25,11 +25,11 @@
             <!--                &#x27F2;-->
             <!--            </button>-->
             <a @click="zoomPdf(-1)" class="zoom-down text-primary">
-                <icon name="zoom-out"></icon>
+                <icon name="ZoomOut"></icon>
             </a>
             <span v-html="`${(100 * zoom) / 800}%`"></span>
             <a @click="zoomPdf(1)" class="zoom-up text-primary">
-                <icon name="zoom-in"></icon>
+                <icon name="ZoomIn"></icon>
             </a>
         </div>
         <vuescroll :ops="ops" class="pdf-content">
@@ -164,7 +164,17 @@ export default class AkkPdfViewer extends Vue {
 
     ops: object = {
         vuescroll: {
-            mode: 'slide'
+            mode: 'native',
+            sizeStrategy: 'percent',
+            detectResize: false,
+        },
+        pullRefresh: {
+            enable: true
+        },
+        pushLoad: {
+            enable: true,
+            auto: true,
+            autoLoadDistance: 10
         },
         bar: {
             background: this.colorScroll

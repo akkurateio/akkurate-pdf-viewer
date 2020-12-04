@@ -12,6 +12,6 @@ export default Vue.extend({
 
 <template>
   <div id="app" style="height: 80%; width: 80%; position: absolute">
-    <akkurate-pdf-viewer src-pdf="http://help.websico.net/fr/data/rawdata/exemple_pdf.pdf" :with-tools="true" />
+    <akkurate-pdf-viewer src-pdf="https://info.sio2.be/tdtooo/sostdt.pdf"  />
   </div>
 </template>
