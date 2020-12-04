@@ -43,7 +43,7 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
   return desc;
 }
 
-var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _temp;
+var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _temp;
 const defaultZoom = 800;
 let AkkPdfViewer = (_dec = Component({
   components: {
@@ -59,7 +59,9 @@ let AkkPdfViewer = (_dec = Component({
   default: false
 }), _dec4 = Prop({
   default: '#1D189C'
-}), _dec5 = Ref(), _dec6 = Ref(), _dec7 = Watch('src', {
+}), _dec5 = Prop({
+  default: false
+}), _dec6 = Ref(), _dec7 = Ref(), _dec8 = Watch('src', {
   immediate: true
 }), _dec(_class = (_class2 = (_temp = class AkkPdfViewer extends Vue {
   constructor(...args) {
@@ -71,9 +73,11 @@ let AkkPdfViewer = (_dec = Component({
 
     _initializerDefineProperty(this, "colorScroll", _descriptor3, this);
 
-    _initializerDefineProperty(this, "pdfCanvas", _descriptor4, this);
+    _initializerDefineProperty(this, "zoomable", _descriptor4, this);
 
-    _initializerDefineProperty(this, "mainContainer", _descriptor5, this);
+    _initializerDefineProperty(this, "pdfCanvas", _descriptor5, this);
+
+    _initializerDefineProperty(this, "mainContainer", _descriptor6, this);
 
     this.src = null;
     this.loadedRatio = 0;
@@ -84,7 +88,7 @@ let AkkPdfViewer = (_dec = Component({
     this.message = '';
     this.ops = {
       vuescroll: {
-        mode: 'slide'
+        mode: this.zoomable ? 'slide' : 'native'
       },
       pullRefresh: {
         enable: true
@@ -180,17 +184,22 @@ let AkkPdfViewer = (_dec = Component({
   enumerable: true,
   writable: true,
   initializer: null
-}), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "pdfCanvas", [_dec5], {
+}), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "zoomable", [_dec5], {
   configurable: true,
   enumerable: true,
   writable: true,
   initializer: null
-}), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "mainContainer", [_dec6], {
+}), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "pdfCanvas", [_dec6], {
   configurable: true,
   enumerable: true,
   writable: true,
   initializer: null
-}), _applyDecoratedDescriptor(_class2.prototype, "onSrcChanged", [_dec7], Object.getOwnPropertyDescriptor(_class2.prototype, "onSrcChanged"), _class2.prototype)), _class2)) || _class);
+}), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "mainContainer", [_dec7], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: null
+}), _applyDecoratedDescriptor(_class2.prototype, "onSrcChanged", [_dec8], Object.getOwnPropertyDescriptor(_class2.prototype, "onSrcChanged"), _class2.prototype)), _class2)) || _class);
 
 function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
     if (typeof shadowMode !== 'boolean') {
@@ -506,7 +515,7 @@ var __vue_staticRenderFns__ = [function () {
 
 const __vue_inject_styles__ = function (inject) {
   if (!inject) return;
-  inject("data-v-2519eda2_0", {
+  inject("data-v-28d01ff1_0", {
     source: ".pdf-viewer{position:relative;background:#f5f5f5;width:100%;height:100%;font-family:Helvetica,Arial,sans-serif;overflow:hidden}.error,.loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.pdf-tools{position:sticky;top:0;right:0;left:0;z-index:1;display:inline-flex;align-items:center;justify-content:center;margin:auto;width:100%;padding:10px;height:64px;background:#f5f5f5}.pdf-tools a{display:inline-block;width:25px;height:25px;cursor:pointer}.pdf-tools span{font:inherit;font-size:1em;font-weight:300;padding:0;width:64px;text-align:center}.pdf-tools input{font-size:1em;width:3rem;border-radius:5px;border:1px solid gray}.pdf-content{margin-top:16px}.pdf-canvas{display:block;margin:auto;width:800px;user-select:none;margin-bottom:20px;margin-top:20px}",
     map: undefined,
     media: undefined

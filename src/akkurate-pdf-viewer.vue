@@ -155,6 +155,8 @@ export default class AkkPdfViewer extends Vue {
     @Prop({ type: String, required: true }) readonly srcPdf!: string;
     @Prop({ default: false }) readonly withTools!: boolean;
     @Prop({ default: '#1D189C' }) readonly colorScroll!: string;
+    @Prop({ default: false }) readonly zoomable!: boolean;
+
     @Ref() readonly pdfCanvas!: Array<HTMLDivElement> | undefined;
     @Ref() readonly mainContainer!: HTMLDivElement | undefined;
 
@@ -168,7 +170,7 @@ export default class AkkPdfViewer extends Vue {
 
     ops: object = {
         vuescroll: {
-            mode: 'slide',
+            mode: this.zoomable ? 'slide' : 'native',
         },
         pullRefresh: {
             enable: true
