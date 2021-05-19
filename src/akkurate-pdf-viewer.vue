@@ -1,43 +1,9 @@
 <template>
-    <div class="pdf-viewer" v-on:scroll="scrollInPdf" ref="mainContainer">
-        <div
-            v-if="numPages > 0 && withTools"
-            class="pdf-tools justify-content-center"
-        >
-            <!--            <button :disabled="page === 1" @click="changePage(page - 1)">-->
-            <!--                ‹-->
-            <!--            </button>-->
-            <!--            <div style="display: inline;">-->
-            <!--                <input-->
-            <!--                    type="number"-->
-            <!--                    :value="page"-->
-            <!--                    @change="changePage($event.target.value)"-->
-            <!--                />-->
-            <!--                <span class="align-middle" v-html="` / ${numPages}`"></span>-->
-            <!--            </div>-->
-            <!--            <button :disabled="page === numPages" @click="changePage(page + 1)">-->
-            <!--                ›-->
-            <!--            </button>-->
-            <!--            <button @click="rotate += 90">-->
-            <!--                &#x27F3;-->
-            <!--            </button>-->
-            <!--            <button @click="rotate -= 90">-->
-            <!--                &#x27F2;-->
-            <!--            </button>-->
-            <a @click="zoomPdf(-1)" class="zoom-down text-primary">
-                <ZoomOut24 />
-            </a>
-            <span v-html="`${(100 * zoom) / 800}%`"></span>
-            <a @click="zoomPdf(1)" class="zoom-up text-primary">
-                <ZoomIn24 />
-            </a>
+    <div class="akk-pdf-viewer" v-on:scroll="scrollInPdf" ref="mainContainer">
+        <div class="akk-pdf-loading" v-if="loading && !message">
+            <pulse-loader :loading="loading" ></pulse-loader>
         </div>
-        <div class="loading" v-if="loading && !message">
-            <div class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-        <vuescroll :ops="ops" class="pdf-content" v-else>
+        <vuescroll :ops="ops" class="akk-pdf-content" v-else>
             <div class="progress" v-if="loadedRatio > 0 && loadedRatio < 1">
                 <div
                     :aria-valuenow="loadedRatio * 100"
@@ -51,12 +17,12 @@
 
             <div
                 :key="i"
-                class="pdf-canvas"
+                class="akk-pdf-canvas"
                 ref="pdfCanvas"
                 v-for="i in numPages"
             >
                 <pdf
-                    :id="`pdf-page-${i}`"
+                    :id="`akk-pdf-page-${i}`"
                     :page="i"
                     :rotate="rotate"
                     :src="src"
@@ -67,7 +33,7 @@
             </div>
         </vuescroll>
 
-        <div class="error" v-if="message">
+        <div class="akk-pdf-error" v-if="message">
             <svg
                 height="128"
                 viewBox="0 0 128 128"
@@ -127,7 +93,7 @@
                     </g>
                 </g>
             </svg>
-            <div class="error-message text-danger font-weight-bolder">
+            <div class="akk-pdf-error-message">
                 <span v-html="message"></span>
             </div>
         </div>
@@ -137,8 +103,8 @@
 import { Component, Prop, Ref, Vue, Watch } from 'vue-property-decorator';
 import pdf from 'vue-pdf';
 import vuescroll from 'vuescroll';
-import ZoomIn24 from "@carbon/icons-vue/es/zoom--in/24";
-import ZoomOut24 from "@carbon/icons-vue/es/zoom--out/24";
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+
 
 const defaultZoom: number = 800;
 
@@ -146,8 +112,7 @@ const defaultZoom: number = 800;
     components: {
         pdf,
         vuescroll,
-        ZoomIn24,
-        ZoomOut24
+        PulseLoader
     },
 })
 export default class AkkPdfViewer extends Vue {
@@ -216,7 +181,7 @@ export default class AkkPdfViewer extends Vue {
 
     zoomPdf(zoomVal: number): void {
         let pdfArray = document.getElementsByClassName(
-            'pdf-canvas'
+            'akk-pdf-canvas'
         ) as HTMLCollectionOf<HTMLElement>;
 
         pdfArray[0].getBoundingClientRect();
@@ -229,9 +194,18 @@ export default class AkkPdfViewer extends Vue {
                 pdfArray[i].style['width'] = `${this.zoom}px`;
             }
             return;
+        } else {
+            if((((100 * this.zoom) / defaultZoom - 25) * defaultZoom) / 100 > 200) {
+
+                this.zoom =
+                    (((100 * this.zoom) / defaultZoom - 25) * defaultZoom) / 100;
+
+                for (let i = 0; i < pdfArray.length; i++) {
+                    pdfArray[i].style['width'] = `${this.zoom}px`;
+                }
+                return;
+            }
         }
-        this.zoom =
-            (((100 * this.zoom) / defaultZoom - 25) * defaultZoom) / 100;
     }
 
     zoomIn() {
@@ -270,7 +244,7 @@ export default class AkkPdfViewer extends Vue {
 }
 </script>
 <style lang="scss">
-.pdf-viewer {
+.akk-pdf-viewer {
     position: relative;
     background: #f5f5f5;
     width: 100%;
@@ -278,8 +252,8 @@ export default class AkkPdfViewer extends Vue {
     font-family: Helvetica, Arial, sans-serif;
     overflow: hidden;
 }
-.loading,
-.error {
+.akk-pdf-loading,
+.akk-pdf-error {
     z-index: 1;
     position: absolute;
     top: 50%;
@@ -287,7 +261,7 @@ export default class AkkPdfViewer extends Vue {
     transform: translate(-50%, -50%);
     text-align: center;
 }
-.pdf-tools {
+.akk-pdf-tools {
     position: sticky;
     top: 0;
     right: 0;
@@ -325,11 +299,11 @@ export default class AkkPdfViewer extends Vue {
     }
 }
 
-.pdf-content {
+.akk-pdf-content {
     margin-top: 16px;
 }
 
-.pdf-canvas {
+.akk-pdf-canvas {
     display: block;
     margin: auto;
     height: 100vh;
@@ -337,5 +311,9 @@ export default class AkkPdfViewer extends Vue {
     user-select: none;
     margin-bottom: 20px;
     margin-top: 20px;
+}
+.akk-pdf-error-message {
+    font-weight: 600;
+    color: red;
 }
 </style>

@@ -1,8 +1,7 @@
 import { Component, Prop, Ref, Watch, Vue } from 'vue-property-decorator';
 import pdf from 'vue-pdf';
 import vuescroll from 'vuescroll';
-import ZoomIn24 from '@carbon/icons-vue/es/zoom--in/24';
-import ZoomOut24 from '@carbon/icons-vue/es/zoom--out/24';
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 
 function _initializerDefineProperty(target, property, descriptor, context) {
   if (!descriptor) return;
@@ -49,8 +48,7 @@ let AkkPdfViewer = (_dec = Component({
   components: {
     pdf,
     vuescroll,
-    ZoomIn24,
-    ZoomOut24
+    PulseLoader
   }
 }), _dec2 = Prop({
   type: String,
@@ -129,7 +127,7 @@ let AkkPdfViewer = (_dec = Component({
   }
 
   zoomPdf(zoomVal) {
-    let pdfArray = document.getElementsByClassName('pdf-canvas');
+    let pdfArray = document.getElementsByClassName('akk-pdf-canvas');
     pdfArray[0].getBoundingClientRect();
 
     if (zoomVal > 0) {
@@ -140,9 +138,17 @@ let AkkPdfViewer = (_dec = Component({
       }
 
       return;
-    }
+    } else {
+      if ((100 * this.zoom / defaultZoom - 25) * defaultZoom / 100 > 200) {
+        this.zoom = (100 * this.zoom / defaultZoom - 25) * defaultZoom / 100;
 
-    this.zoom = (100 * this.zoom / defaultZoom - 25) * defaultZoom / 100;
+        for (let i = 0; i < pdfArray.length; i++) {
+          pdfArray[i].style['width'] = `${this.zoom}px`;
+        }
+
+        return;
+      }
+    }
   }
 
   zoomIn() {
@@ -353,34 +359,18 @@ var __vue_render__ = function () {
 
   return _c('div', {
     ref: "mainContainer",
-    staticClass: "pdf-viewer",
+    staticClass: "akk-pdf-viewer",
     on: {
       "scroll": _vm.scrollInPdf
     }
-  }, [_vm.numPages > 0 && _vm.withTools ? _c('div', {
-    staticClass: "pdf-tools justify-content-center"
-  }, [_c('a', {
-    staticClass: "zoom-down text-primary",
-    on: {
-      "click": function ($event) {
-        return _vm.zoomPdf(-1);
-      }
+  }, [_vm.loading && !_vm.message ? _c('div', {
+    staticClass: "akk-pdf-loading"
+  }, [_c('pulse-loader', {
+    attrs: {
+      "loading": _vm.loading
     }
-  }, [_c('ZoomOut24')], 1), _vm._v(" "), _c('span', {
-    domProps: {
-      "innerHTML": _vm._s(100 * _vm.zoom / 800 + "%")
-    }
-  }), _vm._v(" "), _c('a', {
-    staticClass: "zoom-up text-primary",
-    on: {
-      "click": function ($event) {
-        return _vm.zoomPdf(1);
-      }
-    }
-  }, [_c('ZoomIn24')], 1)]) : _vm._e(), _vm._v(" "), _vm.loading && !_vm.message ? _c('div', {
-    staticClass: "loading"
-  }, [_vm._m(0)]) : _c('vuescroll', {
-    staticClass: "pdf-content",
+  })], 1) : _c('vuescroll', {
+    staticClass: "akk-pdf-content",
     attrs: {
       "ops": _vm.ops
     }
@@ -402,12 +392,12 @@ var __vue_render__ = function () {
       key: i,
       ref: "pdfCanvas",
       refInFor: true,
-      staticClass: "pdf-canvas"
+      staticClass: "akk-pdf-canvas"
     }, [_c('pdf', {
       ref: "pdf",
       refInFor: true,
       attrs: {
-        "id": "pdf-page-" + i,
+        "id": "akk-pdf-page-" + i,
         "page": i,
         "rotate": _vm.rotate,
         "src": _vm.src
@@ -422,7 +412,7 @@ var __vue_render__ = function () {
       }
     })], 1);
   })], 2), _vm._v(" "), _vm.message ? _c('div', {
-    staticClass: "error"
+    staticClass: "akk-pdf-error"
   }, [_c('svg', {
     attrs: {
       "height": "128",
@@ -498,7 +488,7 @@ var __vue_render__ = function () {
       "d": "m16.5 58.25-2.0572484 1.0815595.3928995-2.2907798-1.6643489-1.6223392 2.3000736-.3342202 1.0286242-2.0842203 1.0286242 2.0842203 2.3000736.3342202-1.6643489 1.6223392.3928995 2.2907798z"
     }
   })])])]), _vm._v(" "), _c('div', {
-    staticClass: "error-message text-danger font-weight-bolder"
+    staticClass: "akk-pdf-error-message"
   }, [_c('span', {
     domProps: {
       "innerHTML": _vm._s(_vm.message)
@@ -506,28 +496,13 @@ var __vue_render__ = function () {
   })])]) : _vm._e()], 1);
 };
 
-var __vue_staticRenderFns__ = [function () {
-  var _vm = this;
-
-  var _h = _vm.$createElement;
-
-  var _c = _vm._self._c || _h;
-
-  return _c('div', {
-    staticClass: "spinner-border",
-    attrs: {
-      "role": "status"
-    }
-  }, [_c('span', {
-    staticClass: "sr-only"
-  }, [_vm._v("Loading...")])]);
-}];
+var __vue_staticRenderFns__ = [];
 /* style */
 
 const __vue_inject_styles__ = function (inject) {
   if (!inject) return;
-  inject("data-v-6e6e2787_0", {
-    source: ".pdf-viewer{position:relative;background:#f5f5f5;width:100%;height:100%;font-family:Helvetica,Arial,sans-serif;overflow:hidden}.error,.loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.pdf-tools{position:sticky;top:0;right:0;left:0;z-index:1;display:inline-flex;align-items:center;justify-content:center;margin:auto;width:100%;padding:10px;height:64px;background:#f5f5f5}.pdf-tools a{display:inline-block;width:25px;height:25px;cursor:pointer}.pdf-tools span{font:inherit;font-size:1em;font-weight:300;padding:0;width:64px;text-align:center}.pdf-tools input{font-size:1em;width:3rem;border-radius:5px;border:1px solid gray}.pdf-content{margin-top:16px}.pdf-canvas{display:block;margin:auto;height:100vh;width:100vh;user-select:none;margin-bottom:20px;margin-top:20px}",
+  inject("data-v-57483e7a_0", {
+    source: ".akk-pdf-viewer{position:relative;background:#f5f5f5;width:100%;height:100%;font-family:Helvetica,Arial,sans-serif;overflow:hidden}.akk-pdf-error,.akk-pdf-loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.akk-pdf-tools{position:sticky;top:0;right:0;left:0;z-index:1;display:inline-flex;align-items:center;justify-content:center;margin:auto;width:100%;padding:10px;height:64px;background:#f5f5f5}.akk-pdf-tools a{display:inline-block;width:25px;height:25px;cursor:pointer}.akk-pdf-tools span{font:inherit;font-size:1em;font-weight:300;padding:0;width:64px;text-align:center}.akk-pdf-tools input{font-size:1em;width:3rem;border-radius:5px;border:1px solid gray}.akk-pdf-content{margin-top:16px}.akk-pdf-canvas{display:block;margin:auto;height:100vh;width:100vh;user-select:none;margin-bottom:20px;margin-top:20px}.akk-pdf-error-message{font-weight:600;color:red}",
     map: undefined,
     media: undefined
   });
