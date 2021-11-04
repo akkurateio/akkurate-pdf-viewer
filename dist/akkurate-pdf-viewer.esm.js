@@ -42,7 +42,7 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
   return desc;
 }
 
-var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _temp;
+var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6;
 const defaultZoom = 800;
 let AkkPdfViewer = (_dec = Component({
   components: {
@@ -61,9 +61,9 @@ let AkkPdfViewer = (_dec = Component({
   default: false
 }), _dec6 = Ref(), _dec7 = Ref(), _dec8 = Watch('src', {
   immediate: true
-}), _dec(_class = (_class2 = (_temp = class AkkPdfViewer extends Vue {
-  constructor(...args) {
-    super(...args);
+}), _dec(_class = (_class2 = class AkkPdfViewer extends Vue {
+  constructor() {
+    super(...arguments);
 
     _initializerDefineProperty(this, "srcPdf", _descriptor, this);
 
@@ -186,7 +186,7 @@ let AkkPdfViewer = (_dec = Component({
     this.src = pdf.createLoadingTask(src);
   }
 
-}, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "srcPdf", [_dec2], {
+}, (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "srcPdf", [_dec2], {
   configurable: true,
   enumerable: true,
   writable: true,
@@ -543,4 +543,4 @@ __vue_component__.install = install; // Export component by default
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
 // export const RollupDemoDirective = component;
 
-export default __vue_component__;
+export { __vue_component__ as default };

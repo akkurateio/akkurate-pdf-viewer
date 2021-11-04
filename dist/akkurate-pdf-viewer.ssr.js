@@ -1,4 +1,42 @@
-'use strict';Object.defineProperty(exports,'__esModule',{value:true});var vuePropertyDecorator=require('vue-property-decorator'),pdf=require('vue-pdf'),vuescroll=require('vuescroll'),PulseLoader=require('vue-spinner/src/PulseLoader.vue');function _interopDefaultLegacy(e){return e&&typeof e==='object'&&'default'in e?e:{'default':e}}var pdf__default=/*#__PURE__*/_interopDefaultLegacy(pdf);var vuescroll__default=/*#__PURE__*/_interopDefaultLegacy(vuescroll);var PulseLoader__default=/*#__PURE__*/_interopDefaultLegacy(PulseLoader);function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+'use strict';Object.defineProperty(exports,'__esModule',{value:true});var vuePropertyDecorator=require('vue-property-decorator'),pdf=require('vue-pdf'),vuescroll=require('vuescroll'),PulseLoader=require('vue-spinner/src/PulseLoader.vue');function _interopDefaultLegacy(e){return e&&typeof e==='object'&&'default'in e?e:{'default':e}}var pdf__default=/*#__PURE__*/_interopDefaultLegacy(pdf);var vuescroll__default=/*#__PURE__*/_interopDefaultLegacy(vuescroll);var PulseLoader__default=/*#__PURE__*/_interopDefaultLegacy(PulseLoader);function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+
+    if (enumerableOnly) {
+      symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
     var info = gen[key](arg);
     var value = info.value;
@@ -71,40 +109,6 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    });
-    keys.push.apply(keys, symbols);
-  }
-
-  return keys;
-}
-
-function _objectSpread2(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-
-    if (i % 2) {
-      ownKeys(Object(source), true).forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys(Object(source)).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-  }
-
-  return target;
-}
-
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
@@ -142,7 +146,7 @@ function _isNativeReflectConstruct() {
   if (typeof Proxy === "function") return true;
 
   try {
-    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
     return true;
   } catch (e) {
     return false;
@@ -160,6 +164,8 @@ function _assertThisInitialized(self) {
 function _possibleConstructorReturn(self, call) {
   if (call && (typeof call === "object" || typeof call === "function")) {
     return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
   }
 
   return _assertThisInitialized(self);
@@ -221,13 +227,13 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
   }
 
   return desc;
-}var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _temp;
+}var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6;
 var defaultZoom = 800;
 var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
   components: {
-    pdf: pdf__default['default'],
-    vuescroll: vuescroll__default['default'],
-    PulseLoader: PulseLoader__default['default']
+    pdf: pdf__default["default"],
+    vuescroll: vuescroll__default["default"],
+    PulseLoader: PulseLoader__default["default"]
   }
 }), _dec2 = vuePropertyDecorator.Prop({
   type: String,
@@ -240,7 +246,7 @@ var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
   default: false
 }), _dec6 = vuePropertyDecorator.Ref(), _dec7 = vuePropertyDecorator.Ref(), _dec8 = vuePropertyDecorator.Watch('src', {
   immediate: true
-}), _dec(_class = (_class2 = (_temp = /*#__PURE__*/function (_Vue) {
+}), _dec(_class = (_class2 = /*#__PURE__*/function (_Vue) {
   _inherits(AkkPdfViewer, _Vue);
 
   var _super = _createSuper(AkkPdfViewer);
@@ -334,7 +340,7 @@ var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
   }, {
     key: "created",
     value: function created() {
-      this.src = pdf__default['default'].createLoadingTask(this.srcPdf);
+      this.src = pdf__default["default"].createLoadingTask(this.srcPdf);
       this.ops = _objectSpread2(_objectSpread2({}, this.ops), {}, {
         vuescroll: {
           mode: this.zoomable ? 'slide' : 'native',
@@ -418,12 +424,12 @@ var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
   }, {
     key: "changeSrc",
     value: function changeSrc(src) {
-      this.src = pdf__default['default'].createLoadingTask(src);
+      this.src = pdf__default["default"].createLoadingTask(src);
     }
   }]);
 
   return AkkPdfViewer;
-}(vuePropertyDecorator.Vue), _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "srcPdf", [_dec2], {
+}(vuePropertyDecorator.Vue), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "srcPdf", [_dec2], {
   configurable: true,
   enumerable: true,
   writable: true,
@@ -543,7 +549,7 @@ var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
     return (id, style) => addStyle(id, style, context);
 }
 function addStyle(id, css, context) {
-    const group =  css.media || 'default' ;
+    const group = css.media || 'default' ;
     const style = context._styles[group] || (context._styles[group] = { ids: [], css: '' });
     if (!style.ids.includes(id)) {
         style.media = css.media;
@@ -697,4 +703,4 @@ var plugin = {
 __vue_component__.install = install; // Export component by default
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
 // export const RollupDemoDirective = component;
-exports.default=__vue_component__;
+exports["default"]=__vue_component__;
