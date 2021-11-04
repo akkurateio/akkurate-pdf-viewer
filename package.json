@@ -20,7 +20,8 @@
         "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife"
     },
     "dependencies": {
-        "vue-pdf": "^4.2.0",
+        "vue-pdf": "4.0.12",
+        "pdfjs-dist": "2.5.207",
         "vue-property-decorator": "^9.0.0",
         "vue-spinner": "^1.0.4",
         "vuescroll": "^4.16.3"
