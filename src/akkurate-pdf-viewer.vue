@@ -176,7 +176,6 @@ export default class AkkPdfViewer extends Vue {
                 background: this.colorScroll
             }
         }
-        console.log("Yes", this.ops, this.zoomable)
     }
 
     zoomPdf(zoomVal: number): void {
@@ -246,7 +245,6 @@ export default class AkkPdfViewer extends Vue {
 <style lang="scss">
 .akk-pdf-viewer {
     position: relative;
-    background: #f5f5f5;
     width: 100%;
     height: 100%;
     font-family: Helvetica, Arial, sans-serif;
@@ -261,56 +259,16 @@ export default class AkkPdfViewer extends Vue {
     transform: translate(-50%, -50%);
     text-align: center;
 }
-.akk-pdf-tools {
-    position: sticky;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    width: 100%;
-    padding: 10px;
-    height: 64px;
-    background: #f5f5f5;
-
-    a {
-        display: inline-block;
-        width: 25px;
-        height: 25px;
-        cursor: pointer;
-    }
-
-    span {
-        font: inherit;
-        font-size: 1em;
-        font-weight: 300;
-        padding: 0;
-        width: 64px;
-        text-align: center;
-    }
-    input {
-        font-size: 1em;
-        width: 3rem;
-        border-radius: 5px;
-        border: 1px solid gray;
-    }
-}
 
 .akk-pdf-content {
-    margin-top: 16px;
 }
 
 .akk-pdf-canvas {
     display: block;
-    margin: auto;
     height: 100vh;
     width: 100vh;
     user-select: none;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin: 20px auto;
 }
 .akk-pdf-error-message {
     font-weight: 600;

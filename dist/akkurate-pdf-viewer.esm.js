@@ -42,7 +42,7 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
   return desc;
 }
 
-var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6;
+var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _temp;
 const defaultZoom = 800;
 let AkkPdfViewer = (_dec = Component({
   components: {
@@ -61,9 +61,9 @@ let AkkPdfViewer = (_dec = Component({
   default: false
 }), _dec6 = Ref(), _dec7 = Ref(), _dec8 = Watch('src', {
   immediate: true
-}), _dec(_class = (_class2 = class AkkPdfViewer extends Vue {
-  constructor() {
-    super(...arguments);
+}), _dec(_class = (_class2 = (_temp = class AkkPdfViewer extends Vue {
+  constructor(...args) {
+    super(...args);
 
     _initializerDefineProperty(this, "srcPdf", _descriptor, this);
 
@@ -123,7 +123,6 @@ let AkkPdfViewer = (_dec = Component({
         background: this.colorScroll
       }
     };
-    console.log("Yes", this.ops, this.zoomable);
   }
 
   zoomPdf(zoomVal) {
@@ -186,7 +185,7 @@ let AkkPdfViewer = (_dec = Component({
     this.src = pdf.createLoadingTask(src);
   }
 
-}, (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "srcPdf", [_dec2], {
+}, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "srcPdf", [_dec2], {
   configurable: true,
   enumerable: true,
   writable: true,
@@ -501,8 +500,8 @@ var __vue_staticRenderFns__ = [];
 
 const __vue_inject_styles__ = function (inject) {
   if (!inject) return;
-  inject("data-v-57483e7a_0", {
-    source: ".akk-pdf-viewer{position:relative;background:#f5f5f5;width:100%;height:100%;font-family:Helvetica,Arial,sans-serif;overflow:hidden}.akk-pdf-error,.akk-pdf-loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.akk-pdf-tools{position:sticky;top:0;right:0;left:0;z-index:1;display:inline-flex;align-items:center;justify-content:center;margin:auto;width:100%;padding:10px;height:64px;background:#f5f5f5}.akk-pdf-tools a{display:inline-block;width:25px;height:25px;cursor:pointer}.akk-pdf-tools span{font:inherit;font-size:1em;font-weight:300;padding:0;width:64px;text-align:center}.akk-pdf-tools input{font-size:1em;width:3rem;border-radius:5px;border:1px solid gray}.akk-pdf-content{margin-top:16px}.akk-pdf-canvas{display:block;margin:auto;height:100vh;width:100vh;user-select:none;margin-bottom:20px;margin-top:20px}.akk-pdf-error-message{font-weight:600;color:red}",
+  inject("data-v-1cbdca26_0", {
+    source: ".akk-pdf-viewer{position:relative;width:100%;height:100%;font-family:Helvetica,Arial,sans-serif;overflow:hidden}.akk-pdf-error,.akk-pdf-loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.akk-pdf-canvas{display:block;height:100vh;width:100vh;user-select:none;margin:20px auto}.akk-pdf-error-message{font-weight:600;color:red}",
     map: undefined,
     media: undefined
   });
@@ -543,4 +542,4 @@ __vue_component__.install = install; // Export component by default
 // also be used as directives, etc. - eg. import { RollupDemoDirective } from 'rollup-demo';
 // export const RollupDemoDirective = component;
 
-export { __vue_component__ as default };
+export default __vue_component__;
