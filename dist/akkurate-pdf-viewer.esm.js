@@ -500,8 +500,8 @@ var __vue_staticRenderFns__ = [];
 
 const __vue_inject_styles__ = function (inject) {
   if (!inject) return;
-  inject("data-v-1cbdca26_0", {
-    source: ".akk-pdf-viewer{position:relative;width:100%;height:100%;font-family:Helvetica,Arial,sans-serif;overflow:hidden}.akk-pdf-error,.akk-pdf-loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.akk-pdf-canvas{display:block;height:100vh;width:100vh;user-select:none;margin:20px auto}.akk-pdf-error-message{font-weight:600;color:red}",
+  inject("data-v-bf168e0c_0", {
+    source: ".akk-pdf-viewer{position:relative;width:100%;height:100%;font-family:Helvetica,Arial,sans-serif;overflow:hidden}.akk-pdf-error,.akk-pdf-loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.akk-pdf-canvas{display:block;height:100%;width:100%;user-select:none;margin:20px auto}.akk-pdf-error-message{font-weight:600;color:red}",
     map: undefined,
     media: undefined
   });

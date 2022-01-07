@@ -265,8 +265,8 @@ export default class AkkPdfViewer extends Vue {
 
 .akk-pdf-canvas {
     display: block;
-    height: 100vh;
-    width: 100vh;
+    height: 100%;
+    width: 100%;
     user-select: none;
     margin: 20px auto;
 }
