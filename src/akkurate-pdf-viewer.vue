@@ -3,18 +3,7 @@
         <div class="akk-pdf-loading" v-if="loading && !message">
             <pulse-loader :loading="loading" ></pulse-loader>
         </div>
-        <vuescroll :ops="ops" class="akk-pdf-content" v-else>
-            <div class="progress" v-if="loadedRatio > 0 && loadedRatio < 1">
-                <div
-                    :aria-valuenow="loadedRatio * 100"
-                    :style="{ width: loadedRatio * 100 + '%' }"
-                    aria-valuemax="100"
-                    aria-valuemin="0"
-                    class="progress-bar progress-bar-striped progress-bar-animated"
-                    role="progressbar"
-                ></div>
-            </div>
-
+        <div class="akk-pdf-content" v-else>
             <div
                 :key="i"
                 class="akk-pdf-canvas"
@@ -31,7 +20,7 @@
                     ref="pdf"
                 ></pdf>
             </div>
-        </vuescroll>
+        </div>
 
         <div class="akk-pdf-error" v-if="message">
             <svg
@@ -102,7 +91,6 @@
 <script lang="ts">
 import { Component, Prop, Ref, Vue, Watch } from 'vue-property-decorator';
 import pdf from 'vue-pdf';
-import vuescroll from 'vuescroll';
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
 
@@ -111,7 +99,6 @@ const defaultZoom: number = 800;
 @Component({
     components: {
         pdf,
-        vuescroll,
         PulseLoader
     },
 })
@@ -157,25 +144,6 @@ export default class AkkPdfViewer extends Vue {
 
     created(): void {
         this.src = pdf.createLoadingTask(this.srcPdf);
-
-        this.ops = {
-            ...this.ops,
-            vuescroll: {
-                mode: this.zoomable ? 'slide' : 'native',
-                zooming: this.zoomable
-            },
-            pullRefresh: {
-                enable: true
-            },
-            pushLoad: {
-                enable: true,
-                auto: true,
-                autoLoadDistance: 10
-            },
-            bar: {
-                background: this.colorScroll
-            }
-        }
     }
 
     zoomPdf(zoomVal: number): void {
@@ -244,11 +212,7 @@ export default class AkkPdfViewer extends Vue {
 </script>
 <style lang="scss">
 .akk-pdf-viewer {
-    position: relative;
-    width: 100%;
-    height: 100%;
     font-family: Helvetica, Arial, sans-serif;
-    overflow: hidden;
 }
 .akk-pdf-loading,
 .akk-pdf-error {
@@ -268,7 +232,7 @@ export default class AkkPdfViewer extends Vue {
     height: 100%;
     width: 100%;
     user-select: none;
-    margin: 20px auto;
+    margin: auto;
 }
 .akk-pdf-error-message {
     font-weight: 600;

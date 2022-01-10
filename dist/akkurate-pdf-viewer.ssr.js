@@ -1,4 +1,4 @@
-'use strict';Object.defineProperty(exports,'__esModule',{value:true});var vuePropertyDecorator=require('vue-property-decorator'),pdf=require('vue-pdf'),vuescroll=require('vuescroll'),PulseLoader=require('vue-spinner/src/PulseLoader.vue');function _interopDefaultLegacy(e){return e&&typeof e==='object'&&'default'in e?e:{'default':e}}var pdf__default=/*#__PURE__*/_interopDefaultLegacy(pdf);var vuescroll__default=/*#__PURE__*/_interopDefaultLegacy(vuescroll);var PulseLoader__default=/*#__PURE__*/_interopDefaultLegacy(PulseLoader);function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+'use strict';Object.defineProperty(exports,'__esModule',{value:true});var vuePropertyDecorator=require('vue-property-decorator'),pdf=require('vue-pdf'),PulseLoader=require('vue-spinner/src/PulseLoader.vue');function _interopDefaultLegacy(e){return e&&typeof e==='object'&&'default'in e?e:{'default':e}}var pdf__default=/*#__PURE__*/_interopDefaultLegacy(pdf);var PulseLoader__default=/*#__PURE__*/_interopDefaultLegacy(PulseLoader);function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
   try {
     var info = gen[key](arg);
     var value = info.value;
@@ -54,55 +54,6 @@ function _createClass(Constructor, protoProps, staticProps) {
   if (protoProps) _defineProperties(Constructor.prototype, protoProps);
   if (staticProps) _defineProperties(Constructor, staticProps);
   return Constructor;
-}
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    });
-    keys.push.apply(keys, symbols);
-  }
-
-  return keys;
-}
-
-function _objectSpread2(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-
-    if (i % 2) {
-      ownKeys(Object(source), true).forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys(Object(source)).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-  }
-
-  return target;
 }
 
 function _inherits(subClass, superClass) {
@@ -226,7 +177,6 @@ var defaultZoom = 800;
 var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
   components: {
     pdf: pdf__default['default'],
-    vuescroll: vuescroll__default['default'],
     PulseLoader: PulseLoader__default['default']
   }
 }), _dec2 = vuePropertyDecorator.Prop({
@@ -335,23 +285,6 @@ var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
     key: "created",
     value: function created() {
       this.src = pdf__default['default'].createLoadingTask(this.srcPdf);
-      this.ops = _objectSpread2(_objectSpread2({}, this.ops), {}, {
-        vuescroll: {
-          mode: this.zoomable ? 'slide' : 'native',
-          zooming: this.zoomable
-        },
-        pullRefresh: {
-          enable: true
-        },
-        pushLoad: {
-          enable: true,
-          auto: true,
-          autoLoadDistance: 10
-        },
-        bar: {
-          background: this.colorScroll
-        }
-      });
     }
   }, {
     key: "zoomPdf",
@@ -586,31 +519,8 @@ var __vue_render__ = function __vue_render__() {
     attrs: {
       "loading": _vm.loading
     }
-  })], 1) : _c('vuescroll', {
-    staticClass: "akk-pdf-content",
-    attrs: {
-      "ops": _vm.ops
-    }
-  }, [_vm.loadedRatio > 0 && _vm.loadedRatio < 1 ? _c('div', {
-    staticClass: "progress"
-  }, [_c('div', {
-    staticClass: "progress-bar progress-bar-striped progress-bar-animated",
-    style: {
-      width: _vm.loadedRatio * 100 + '%'
-    },
-    attrs: {
-      "aria-valuenow": _vm.loadedRatio * 100,
-      "aria-valuemax": "100",
-      "aria-valuemin": "0",
-      "role": "progressbar"
-    }
-  })]) : _vm._e(), _vm._v(" "), _vm._l(_vm.numPages, function (i) {
-    return _c('div', {
-      key: i,
-      ref: "pdfCanvas",
-      refInFor: true,
-      staticClass: "akk-pdf-canvas"
-    }, [_c('pdf', {
+  })], 1) : _vm._ssrNode("<div class=\"akk-pdf-content\">", "</div>", _vm._l(_vm.numPages, function (i) {
+    return _vm._ssrNode("<div class=\"akk-pdf-canvas\">", "</div>", [_c('pdf', {
       ref: "pdf",
       refInFor: true,
       attrs: {
@@ -628,7 +538,7 @@ var __vue_render__ = function __vue_render__() {
         }
       }
     })], 1);
-  })], 2), _vm._ssrNode(" " + (_vm.message ? "<div class=\"akk-pdf-error\"><svg height=\"128\" viewBox=\"0 0 128 128\" width=\"128\" xmlns=\"http://www.w3.org/2000/svg\"><g fill=\"none\" fill-rule=\"evenodd\"><path d=\"m87 102 3.5 5.25-2.5 3.75-3.5-5.25zm-12 0 3.5 5.25-2.5 3.75-3.5-5.25zm-12 0 3.5 5.25-2.5 3.75-3.5-5.25zm-12 0 3.5 5.25-2.5 3.75-3.5-5.25zm-12 0 3.5 5.25-2.5 3.75-3.5-5.25zm25-71c19.882251 0 36 16.117749 36 36v42c0 .645453-.0169864 1.286938-.0505367 1.924034l-5.9494633-8.924034-1 1.5v-36.5c0-18.7012521-14.25984-34.0719401-32.4994394-35.8319833 1.1513984-.111181 2.3187815-.1680167 3.4994394-.1680167zm-36 72.5 2.5 3.75-2.449 3.674-.0266344-.587053c-.0161968-.443647-.0243656-.889343-.0243656-1.336947z\" fill=\"#f5f5f5\"></path> <path d=\"m29 107.697575 4.9999767-7.500386 6.0000233 9.000035 6-9 6 9 6-9 6 9 6-9 6 9 6-9 6 9 5.9999925-8.999988 5.0000075 7.499875v-40.697111c0-9.6649831-3.9175084-18.4149831-10.2512627-24.7487373-6.3337542-6.3337543-15.0837542-10.2512627-24.7487373-10.2512627s-18.4149831 3.9175084-24.7487373 10.2512627c-6.3337543 6.3337542-10.2512627 15.0837542-10.2512627 24.7487373z\" stroke=\"#000\" stroke-width=\"2\"></path> <rect fill=\"#000\" height=\"4\" rx=\"2\" width=\"22\" x=\"53\" y=\"86\"></rect> <rect fill=\"#000\" height=\"4\" rx=\"2\" width=\"10\" x=\"40\" y=\"77\"></rect> <rect fill=\"#000\" height=\"4\" rx=\"2\" width=\"10\" x=\"78\" y=\"77\"></rect> <g fill=\"#ccc\"><path d=\"m24 20c0 4.9705627 4.0294373 9 9 9 .536787 0 1.062598-.0469934 1.5735435-.1370907-1.6003862 2.4888038-4.3944758 4.1370907-7.5735435 4.1370907-4.9705627 0-9-4.0294373-9-9 0-4.4337758 3.2061271-8.1187205 7.4264565-8.8629093-.9030194 1.4021744-1.4264565 3.0714142-1.4264565 4.8629093z\"></path> <path d=\"m76.5 19.25-2.0572484 1.0815595.3928995-2.2907798-1.6643489-1.6223392 2.3000736-.3342202 1.0286242-2.0842203 1.0286242 2.0842203 2.3000736.3342202-1.6643489 1.6223392.3928995 2.2907798z\"></path> <path d=\"m105.5 47.25-2.057248 1.0815595.392899-2.2907798-1.664349-1.6223392 2.300074-.3342202 1.028624-2.0842203 1.028624 2.0842203 2.300074.3342202-1.664349 1.6223392.392899 2.2907798z\"></path> <path d=\"m108.5 19.75-4.996175 2.6266445.954185-5.5633223-4.04199-3.9399667 5.585893-.8116777 2.498087-5.0616778 2.498087 5.0616778 5.585893.8116777-4.04199 3.9399667.954185 5.5633223z\"></path> <path d=\"m16.5 58.25-2.0572484 1.0815595.3928995-2.2907798-1.6643489-1.6223392 2.3000736-.3342202 1.0286242-2.0842203 1.0286242 2.0842203 2.3000736.3342202-1.6643489 1.6223392.3928995 2.2907798z\"></path></g></g></svg> <div class=\"akk-pdf-error-message\"><span>" + _vm._s(_vm.message) + "</span></div></div>" : "<!---->"))], 2);
+  }), 0), _vm._ssrNode(" " + (_vm.message ? "<div class=\"akk-pdf-error\"><svg height=\"128\" viewBox=\"0 0 128 128\" width=\"128\" xmlns=\"http://www.w3.org/2000/svg\"><g fill=\"none\" fill-rule=\"evenodd\"><path d=\"m87 102 3.5 5.25-2.5 3.75-3.5-5.25zm-12 0 3.5 5.25-2.5 3.75-3.5-5.25zm-12 0 3.5 5.25-2.5 3.75-3.5-5.25zm-12 0 3.5 5.25-2.5 3.75-3.5-5.25zm-12 0 3.5 5.25-2.5 3.75-3.5-5.25zm25-71c19.882251 0 36 16.117749 36 36v42c0 .645453-.0169864 1.286938-.0505367 1.924034l-5.9494633-8.924034-1 1.5v-36.5c0-18.7012521-14.25984-34.0719401-32.4994394-35.8319833 1.1513984-.111181 2.3187815-.1680167 3.4994394-.1680167zm-36 72.5 2.5 3.75-2.449 3.674-.0266344-.587053c-.0161968-.443647-.0243656-.889343-.0243656-1.336947z\" fill=\"#f5f5f5\"></path> <path d=\"m29 107.697575 4.9999767-7.500386 6.0000233 9.000035 6-9 6 9 6-9 6 9 6-9 6 9 6-9 6 9 5.9999925-8.999988 5.0000075 7.499875v-40.697111c0-9.6649831-3.9175084-18.4149831-10.2512627-24.7487373-6.3337542-6.3337543-15.0837542-10.2512627-24.7487373-10.2512627s-18.4149831 3.9175084-24.7487373 10.2512627c-6.3337543 6.3337542-10.2512627 15.0837542-10.2512627 24.7487373z\" stroke=\"#000\" stroke-width=\"2\"></path> <rect fill=\"#000\" height=\"4\" rx=\"2\" width=\"22\" x=\"53\" y=\"86\"></rect> <rect fill=\"#000\" height=\"4\" rx=\"2\" width=\"10\" x=\"40\" y=\"77\"></rect> <rect fill=\"#000\" height=\"4\" rx=\"2\" width=\"10\" x=\"78\" y=\"77\"></rect> <g fill=\"#ccc\"><path d=\"m24 20c0 4.9705627 4.0294373 9 9 9 .536787 0 1.062598-.0469934 1.5735435-.1370907-1.6003862 2.4888038-4.3944758 4.1370907-7.5735435 4.1370907-4.9705627 0-9-4.0294373-9-9 0-4.4337758 3.2061271-8.1187205 7.4264565-8.8629093-.9030194 1.4021744-1.4264565 3.0714142-1.4264565 4.8629093z\"></path> <path d=\"m76.5 19.25-2.0572484 1.0815595.3928995-2.2907798-1.6643489-1.6223392 2.3000736-.3342202 1.0286242-2.0842203 1.0286242 2.0842203 2.3000736.3342202-1.6643489 1.6223392.3928995 2.2907798z\"></path> <path d=\"m105.5 47.25-2.057248 1.0815595.392899-2.2907798-1.664349-1.6223392 2.300074-.3342202 1.028624-2.0842203 1.028624 2.0842203 2.300074.3342202-1.664349 1.6223392.392899 2.2907798z\"></path> <path d=\"m108.5 19.75-4.996175 2.6266445.954185-5.5633223-4.04199-3.9399667 5.585893-.8116777 2.498087-5.0616778 2.498087 5.0616778 5.585893.8116777-4.04199 3.9399667.954185 5.5633223z\"></path> <path d=\"m16.5 58.25-2.0572484 1.0815595.3928995-2.2907798-1.6643489-1.6223392 2.3000736-.3342202 1.0286242-2.0842203 1.0286242 2.0842203 2.3000736.3342202-1.6643489 1.6223392.3928995 2.2907798z\"></path></g></g></svg> <div class=\"akk-pdf-error-message\"><span>" + _vm._s(_vm.message) + "</span></div></div>" : "<!---->"))], 2);
 };
 
 var __vue_staticRenderFns__ = [];
@@ -636,8 +546,8 @@ var __vue_staticRenderFns__ = [];
 
 var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
   if (!inject) return;
-  inject("data-v-bf168e0c_0", {
-    source: ".akk-pdf-viewer{position:relative;width:100%;height:100%;font-family:Helvetica,Arial,sans-serif;overflow:hidden}.akk-pdf-error,.akk-pdf-loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.akk-pdf-canvas{display:block;height:100%;width:100%;user-select:none;margin:20px auto}.akk-pdf-error-message{font-weight:600;color:red}",
+  inject("data-v-561fea98_0", {
+    source: ".akk-pdf-viewer{font-family:Helvetica,Arial,sans-serif}.akk-pdf-error,.akk-pdf-loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.akk-pdf-canvas{display:block;height:100%;width:100%;user-select:none;margin:auto}.akk-pdf-error-message{font-weight:600;color:red}",
     map: undefined,
     media: undefined
   });
@@ -648,7 +558,7 @@ var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-bf168e0c";
+var __vue_module_identifier__ = "data-v-561fea98";
 /* functional template */
 
 var __vue_is_functional_template__ = false;

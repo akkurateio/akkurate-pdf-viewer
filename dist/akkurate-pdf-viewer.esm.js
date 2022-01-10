@@ -1,6 +1,5 @@
 import { Component, Prop, Ref, Watch, Vue } from 'vue-property-decorator';
 import pdf from 'vue-pdf';
-import vuescroll from 'vuescroll';
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
 
 function _initializerDefineProperty(target, property, descriptor, context) {
@@ -47,7 +46,6 @@ const defaultZoom = 800;
 let AkkPdfViewer = (_dec = Component({
   components: {
     pdf,
-    vuescroll,
     PulseLoader
   }
 }), _dec2 = Prop({
@@ -106,23 +104,6 @@ let AkkPdfViewer = (_dec = Component({
 
   created() {
     this.src = pdf.createLoadingTask(this.srcPdf);
-    this.ops = { ...this.ops,
-      vuescroll: {
-        mode: this.zoomable ? 'slide' : 'native',
-        zooming: this.zoomable
-      },
-      pullRefresh: {
-        enable: true
-      },
-      pushLoad: {
-        enable: true,
-        auto: true,
-        autoLoadDistance: 10
-      },
-      bar: {
-        background: this.colorScroll
-      }
-    };
   }
 
   zoomPdf(zoomVal) {
@@ -368,25 +349,9 @@ var __vue_render__ = function () {
     attrs: {
       "loading": _vm.loading
     }
-  })], 1) : _c('vuescroll', {
-    staticClass: "akk-pdf-content",
-    attrs: {
-      "ops": _vm.ops
-    }
-  }, [_vm.loadedRatio > 0 && _vm.loadedRatio < 1 ? _c('div', {
-    staticClass: "progress"
-  }, [_c('div', {
-    staticClass: "progress-bar progress-bar-striped progress-bar-animated",
-    style: {
-      width: _vm.loadedRatio * 100 + '%'
-    },
-    attrs: {
-      "aria-valuenow": _vm.loadedRatio * 100,
-      "aria-valuemax": "100",
-      "aria-valuemin": "0",
-      "role": "progressbar"
-    }
-  })]) : _vm._e(), _vm._v(" "), _vm._l(_vm.numPages, function (i) {
+  })], 1) : _c('div', {
+    staticClass: "akk-pdf-content"
+  }, _vm._l(_vm.numPages, function (i) {
     return _c('div', {
       key: i,
       ref: "pdfCanvas",
@@ -410,7 +375,7 @@ var __vue_render__ = function () {
         }
       }
     })], 1);
-  })], 2), _vm._v(" "), _vm.message ? _c('div', {
+  }), 0), _vm._v(" "), _vm.message ? _c('div', {
     staticClass: "akk-pdf-error"
   }, [_c('svg', {
     attrs: {
@@ -492,7 +457,7 @@ var __vue_render__ = function () {
     domProps: {
       "innerHTML": _vm._s(_vm.message)
     }
-  })])]) : _vm._e()], 1);
+  })])]) : _vm._e()]);
 };
 
 var __vue_staticRenderFns__ = [];
@@ -500,8 +465,8 @@ var __vue_staticRenderFns__ = [];
 
 const __vue_inject_styles__ = function (inject) {
   if (!inject) return;
-  inject("data-v-bf168e0c_0", {
-    source: ".akk-pdf-viewer{position:relative;width:100%;height:100%;font-family:Helvetica,Arial,sans-serif;overflow:hidden}.akk-pdf-error,.akk-pdf-loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.akk-pdf-canvas{display:block;height:100%;width:100%;user-select:none;margin:20px auto}.akk-pdf-error-message{font-weight:600;color:red}",
+  inject("data-v-561fea98_0", {
+    source: ".akk-pdf-viewer{font-family:Helvetica,Arial,sans-serif}.akk-pdf-error,.akk-pdf-loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.akk-pdf-canvas{display:block;height:100%;width:100%;user-select:none;margin:auto}.akk-pdf-error-message{font-weight:600;color:red}",
     map: undefined,
     media: undefined
   });
