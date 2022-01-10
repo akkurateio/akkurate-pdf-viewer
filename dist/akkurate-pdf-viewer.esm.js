@@ -360,6 +360,7 @@ var __vue_render__ = function () {
     }, [_c('pdf', {
       ref: "pdf",
       refInFor: true,
+      staticClass: "akk-pdf-page",
       attrs: {
         "id": "akk-pdf-page-" + i,
         "page": i,
@@ -465,8 +466,8 @@ var __vue_staticRenderFns__ = [];
 
 const __vue_inject_styles__ = function (inject) {
   if (!inject) return;
-  inject("data-v-561fea98_0", {
-    source: ".akk-pdf-viewer{font-family:Helvetica,Arial,sans-serif}.akk-pdf-error,.akk-pdf-loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.akk-pdf-canvas{display:block;height:100%;width:100%;user-select:none;margin:auto}.akk-pdf-error-message{font-weight:600;color:red}",
+  inject("data-v-14684af1_0", {
+    source: ".akk-pdf-viewer{font-family:Helvetica,Arial,sans-serif}.akk-pdf-error,.akk-pdf-loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.akk-pdf-error-message{font-weight:600;color:red}",
     map: undefined,
     media: undefined
   });

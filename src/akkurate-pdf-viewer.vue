@@ -15,6 +15,7 @@
                     :page="i"
                     :rotate="rotate"
                     :src="src"
+                    class="akk-pdf-page"
                     @link-clicked="page = $event"
                     @progress="loadedRatio = $event"
                     ref="pdf"
@@ -228,14 +229,10 @@ export default class AkkPdfViewer extends Vue {
 }
 
 .akk-pdf-canvas {
-    display: block;
-    height: 100%;
-    width: 100%;
-    user-select: none;
-    margin: auto;
 }
 .akk-pdf-error-message {
     font-weight: 600;
     color: red;
 }
+
 </style>
