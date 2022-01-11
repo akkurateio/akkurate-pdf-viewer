@@ -90,7 +90,7 @@
     </div>
 </template>
 <script lang="ts">
-import { Component, Prop, Ref, Vue, Watch } from 'vue-property-decorator';
+import {Component, Prop, Ref, Vue, Watch} from 'vue-property-decorator';
 import pdf from 'vue-pdf';
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
@@ -121,8 +121,6 @@ export default class AkkPdfViewer extends Vue {
     message: string = null;
     loading: boolean = false;
 
-    ops: object = {};
-
     @Watch('src', { immediate: true })
     async onSrcChanged() {
         this.loading = true;
@@ -135,12 +133,17 @@ export default class AkkPdfViewer extends Vue {
                 const pdf = await this.src.promise;
                 this.message = null;
                 this.numPages = pdf.numPages;
+
                 this.loading = false;
             }
         } catch (err) {
             this.message = 'Erreur de chargement du PDF.';
             console.log(err);
         }
+
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+        this.zoomIn()
+        this.zoomOut()
     }
 
     created(): void {

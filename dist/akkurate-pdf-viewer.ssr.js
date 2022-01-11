@@ -226,7 +226,6 @@ var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
     _this.zoom = defaultZoom;
     _this.message = null;
     _this.loading = false;
-    _this.ops = {};
     return _this;
   }
 
@@ -268,6 +267,16 @@ var AkkPdfViewer = (_dec = vuePropertyDecorator.Component({
                 console.log(_context.t0);
 
               case 15:
+                _context.next = 17;
+                return new Promise(function (resolve) {
+                  return setTimeout(resolve, 1000);
+                });
+
+              case 17:
+                this.zoomIn();
+                this.zoomOut();
+
+              case 19:
               case "end":
                 return _context.stop();
             }
@@ -547,7 +556,7 @@ var __vue_staticRenderFns__ = [];
 
 var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
   if (!inject) return;
-  inject("data-v-02bc7e79_0", {
+  inject("data-v-61ed9d52_0", {
     source: ".akk-pdf-viewer{overflow:auto;font-family:Helvetica,Arial,sans-serif}.akk-pdf-error,.akk-pdf-loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.akk-pdf-canvas{margin:auto}.akk-pdf-error-message{font-weight:600;color:red}",
     map: undefined,
     media: undefined
@@ -559,7 +568,7 @@ var __vue_inject_styles__ = function __vue_inject_styles__(inject) {
 var __vue_scope_id__ = undefined;
 /* module identifier */
 
-var __vue_module_identifier__ = "data-v-02bc7e79";
+var __vue_module_identifier__ = "data-v-61ed9d52";
 /* functional template */
 
 var __vue_is_functional_template__ = false;

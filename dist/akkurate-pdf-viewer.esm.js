@@ -83,7 +83,6 @@ let AkkPdfViewer = (_dec = Component({
     this.zoom = defaultZoom;
     this.message = null;
     this.loading = false;
-    this.ops = {};
   }
 
   async onSrcChanged() {
@@ -100,6 +99,10 @@ let AkkPdfViewer = (_dec = Component({
       this.message = 'Erreur de chargement du PDF.';
       console.log(err);
     }
+
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    this.zoomIn();
+    this.zoomOut();
   }
 
   created() {
@@ -466,7 +469,7 @@ var __vue_staticRenderFns__ = [];
 
 const __vue_inject_styles__ = function (inject) {
   if (!inject) return;
-  inject("data-v-02bc7e79_0", {
+  inject("data-v-61ed9d52_0", {
     source: ".akk-pdf-viewer{overflow:auto;font-family:Helvetica,Arial,sans-serif}.akk-pdf-error,.akk-pdf-loading{z-index:1;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}.akk-pdf-canvas{margin:auto}.akk-pdf-error-message{font-weight:600;color:red}",
     map: undefined,
     media: undefined
