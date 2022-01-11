@@ -213,6 +213,7 @@ export default class AkkPdfViewer extends Vue {
 </script>
 <style lang="scss">
 .akk-pdf-viewer {
+    overflow: auto;
     font-family: Helvetica, Arial, sans-serif;
 }
 .akk-pdf-loading,
@@ -229,6 +230,7 @@ export default class AkkPdfViewer extends Vue {
 }
 
 .akk-pdf-canvas {
+    margin: auto;
 }
 .akk-pdf-error-message {
     font-weight: 600;
